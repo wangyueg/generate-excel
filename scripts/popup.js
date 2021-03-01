@@ -11,6 +11,7 @@ $(function(){
                     oTable.html($(tableStr));
 
                     let oTh = $('#table table thead tr th');
+                    oTh[2].innerHTML = 'Threads';
                     oTh.splice(3, 0, oTh[4]);
                     oTh.splice(5, 1);
                     oTh.splice(3, 0, oTh[12]);
@@ -28,6 +29,8 @@ $(function(){
                     let a = [];
                     for (let i=0; i<$('#table table tbody tr').length; i++) {
                         let oT = $(`#table table tbody .tr_${i} td`);
+                        let secondText = (oT[1].innerText).match(/Threads_(\d+)/);
+                        oT[2].innerText = secondText ? secondText[1] : '';
                         oT.splice(3, 0, oT[4]);
                         oT.splice(5, 1);
                         oT.splice(3, 0, oT[12]);

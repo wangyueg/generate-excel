@@ -24,6 +24,6 @@
             "js": ["scripts/jquery.js", "scripts/spliceTables.js"]
         }
     ],
-    "permissions": [],
+    "permissions": ["tabs"],
     "manifest_version": 2
 }

@@ -15,35 +15,37 @@ $(function(){
                     oTable.html($(tableStr));
 
                     let oTh = $('#table table thead tr th');
-                    oTh[2].innerHTML = 'Threads';
-                    oTh.splice(3, 0, oTh[4]);
-                    oTh.splice(5, 1);
-                    oTh.splice(3, 0, oTh[12]);
-                    oTh.splice(13, 1);
-                    oTh.splice(5, 0, oTh[12]);
-                    oTh.splice(13, 1);
+                    oTh[3].innerHTML = 'Threads';
+                    oTh.splice(4, 0, oTh[5]);
+                    oTh.splice(6, 1);
+                    oTh.splice(4, 0, oTh[13]);
+                    oTh.splice(14, 1);
+                    oTh.splice(6, 0, oTh[13]);
+                    oTh.splice(14, 1);
                     oTh.css({
                         'background-color': function(index, value) {
-                            return index < 6 ? '#ffeb3b' : '#ccc';
+                            return index < 7 ? '#ffeb3b' : '#ccc';
                         }
                     });
 
                     $('#table table thead tr').html(oTh);
                     
                     let a = [];
+                    let oTrAll = $('#table table tbody tr');
                     for (let i=0; i<$('#table table tbody tr').length; i++) {
                         let oT = $(`#table table tbody .tr_${i} td`);
-                        let secondText = (oT[1].innerText).match(/Threads_(\d+)/);
-                        oT[2].innerText = secondText ? secondText[1] : '';
-                        oT.splice(3, 0, oT[4]);
-                        oT.splice(5, 1);
-                        oT.splice(3, 0, oT[12]);
-                        oT.splice(13, 1);
-                        oT.splice(5, 0, oT[12]);
-                        oT.splice(13, 1);
+                        let secondText = (oT[2].innerText).match(/Threads_(\d+)/);
+                        oT[1].innerText = oT[2].innerText ? oT[2].innerText.split('_')[1] : ''
+                        oT[3].innerText = secondText ? secondText[1] : '';
+                        oT.splice(4, 0, oT[5]);
+                        oT.splice(6, 1);
+                        oT.splice(4, 0, oT[13]);
+                        oT.splice(14, 1);
+                        oT.splice(6, 0, oT[13]);
+                        oT.splice(14, 1);
                         oT.css({
                             'background-color': function(index, value) {
-                                return index >= 6 ? '#ccc' : value;
+                                return index >= 7 ? '#ccc' : value;
                             }
                         });
 
@@ -51,11 +53,26 @@ $(function(){
                             if (index === 5 && parseFloat(item.innerText) > 0) {
                                 oT.css({
                                     'color': function(index, value) {
-                                        return index < 6 ? 'red' : value;
+                                        return index < 7 ? 'red' : value;
                                     }
                                 });
                             }
                         });
+
+                        if (i !== oTrAll.length - 1) {
+                            let oTNext = $(`#table table tbody .tr_${i + 1} td`);
+                            const oTNextText = oTNext[2].innerText ? oTNext[2].innerText.split('_')[1] : '';
+                            if (oT[1].innerText === oTNextText) {
+                                oT[1].rowSpan = 2;
+                            }
+                        }
+                        
+                        if (i !== 0) {
+                            let oTBefore = $(`#table table tbody .tr_${i - 1} td`);
+                            if (oTBefore[1].rowSpan === 2) {
+                                oT.splice(1, 1);
+                            }
+                        }
                         $(`#table table tbody .tr_${i}`).html(oT);
                     }
 

@@ -50,7 +50,7 @@ $(function(){
                         });
 
                         oT.map((index, item) => {
-                            if (index === 5 && parseFloat(item.innerText) > 0) {
+                            if (index === 6 && parseFloat(item.innerText) > 0) {
                                 oT.css({
                                     'color': function(index, value) {
                                         return index < 7 ? 'red' : value;
